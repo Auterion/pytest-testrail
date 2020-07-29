@@ -218,7 +218,7 @@ class PyTestRailPlugin(object):
             if rep.when == 'call' and testcaseids:
                 cleantestids = clean_test_ids(testcaseids)
                 testoutcome = get_test_outcome(outcome.get_result().outcome)
-                testcomment = rep.longrepr if testoutcome != TESTRAIL_TEST_STATUS["passed"] else rep.capstdout
+                testcomment = rep.longrepr + "\n\nSTDOUT:\n\n" + rep.capstdout if testoutcome != TESTRAIL_TEST_STATUS["passed"] else rep.capstdout
                 testdefects = str(clean_test_defects(defectids)).replace('[', '').replace(']', '').replace("'", '') if defectids != None else None
                 self.add_result(
                         cleantestids,
